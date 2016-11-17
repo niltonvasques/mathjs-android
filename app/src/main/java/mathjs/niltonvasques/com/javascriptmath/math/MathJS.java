@@ -7,6 +7,8 @@ import android.webkit.WebViewClient;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import mathjs.niltonvasques.com.javascriptmath.utils.ThreadUtils;
+
 /**
  * Created by niltonvasques on 11/17/16.
  */
@@ -15,14 +17,19 @@ public class MathJS extends WebViewClient {
     private WebView mWebView;
     private boolean mLoaded = false;
     private ConcurrentLinkedQueue<Expression> expressions = new ConcurrentLinkedQueue<>();
-    public MathJS(Context context) {
-        mWebView = new WebView(context);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setAllowFileAccess(true);
-        mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
-        mWebView.loadDataWithBaseURL("file:///android_asset/", MATH_JS_HTML, "text/html",
-                "utf-8", "");
-        mWebView.setWebViewClient(this);
+    public MathJS(final Context context) {
+        ThreadUtils.runOnMain(new Runnable() {
+            @Override
+            public void run() {
+                mWebView = new WebView(context);
+                mWebView.getSettings().setJavaScriptEnabled(true);
+                mWebView.getSettings().setAllowFileAccess(true);
+                mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
+                mWebView.loadDataWithBaseURL("file:///android_asset/", MATH_JS_HTML, "text/html",
+                        "utf-8", "");
+                mWebView.setWebViewClient(MathJS.this);
+            }
+        });
     }
 
     @Override
