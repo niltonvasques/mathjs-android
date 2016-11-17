@@ -4,7 +4,7 @@ An android wrapper library to mathjs.org javascript library
 ## Installation
 
 #### Gradle
-Fluxxan is available on jcenter.
+Mathjs is available on jitpack.
 
 ```gradle
     compile 'com.github.niltonvasques:mathjs-android:0.1.0'
