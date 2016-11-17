@@ -83,14 +83,21 @@ public class MathJS extends WebViewClient {
     private void evaluateExpression(final Expression expr) {
         if (mWebView == null)
             throw new IllegalStateException("Cannot evaluate after been destroyed!");
-        mWebView.evaluateJavascript("(function() { return math.eval('"+expr.expr+"'); })();",
-                new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String s) {
-                        System.out.println("MathJS.onReceiveValue "+s);
-                        expr.callback.onEvaluated(s);
-                    }
-                });
+        ThreadUtils.runOnMain(new Runnable() {
+            @Override
+            public void run() {
+                mWebView.evaluateJavascript("(function() { return math.eval('"+expr.expr+"'); })();",
+                        new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String s) {
+                                System.out.println("MathJS.onReceiveValue "+s);
+                                expr.callback.onEvaluated(s);
+                            }
+                        });
+
+            }
+        });
+
     }
 
     private class Expression {
