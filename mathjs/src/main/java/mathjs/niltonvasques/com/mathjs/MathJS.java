@@ -10,9 +10,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import mathjs.niltonvasques.com.mathjs.utils.ThreadUtils;
 
 /**
+ * A class that wrapper the mathjs.org javascript library to help compute math expressions.
+ *
+ * Uses {@link #eval} method to evaluate expressions.
+ * And when not need more the library, call {@link #destroy()} to deallocate resources from memory.
+ *
  * Created by niltonvasques on 11/17/16.
  */
-
 public class MathJS extends WebViewClient {
     private WebView mWebView;
     private boolean mLoaded = false;
@@ -42,7 +46,43 @@ public class MathJS extends WebViewClient {
         }
     }
 
+    /**
+     * Evaluate n math expression using mathjs library asynchronously.
+     *
+     * @param expr expression to be evaluated.
+     * @param result the callback that will be called after the expression be evaluated.
+     */
+    public void eval(String expr, final MathJSResult result) {
+        Expression expression = new Expression(expr, result);
+        if (!mLoaded) {
+            expressions.offer(expression);
+        } else {
+            evaluateExpression(expression);
+        }
+    }
+
+    /**
+     * Deallocate WebView instance used by the library.
+     */
+    public void destroy() {
+        ThreadUtils.runOnMain(new Runnable() {
+            @Override
+            public void run() {
+                if(mWebView != null) {
+                    mWebView.clearHistory();
+                    mWebView.clearCache(true);
+                    mWebView.loadUrl("about:blank");
+                    mWebView.freeMemory();
+                    mWebView.pauseTimers();
+                    mWebView = null;
+                }
+            }
+        });
+    }
+
     private void evaluateExpression(final Expression expr) {
+        if (mWebView == null)
+            throw new IllegalStateException("Cannot evaluate after been destroyed!");
         mWebView.evaluateJavascript("(function() { return math.eval('"+expr.expr+"'); })();",
                 new ValueCallback<String>() {
                     @Override
@@ -51,15 +91,6 @@ public class MathJS extends WebViewClient {
                         expr.callback.onEvaluated(s);
                     }
                 });
-    }
-
-    public void eval(String expr, final MathJSResult result) {
-        Expression expression = new Expression(expr, result);
-        if (!mLoaded) {
-            expressions.offer(expression);
-        } else {
-            evaluateExpression(expression);
-        }
     }
 
     private class Expression {
@@ -71,11 +102,14 @@ public class MathJS extends WebViewClient {
         }
     }
 
+    /**
+     * Callback interface used to communicate evaluation results.
+     */
     public interface MathJSResult {
         void onEvaluated(String value);
     }
 
-    public static String MATH_JS_HTML = "<!DOCTYPE HTML>\n" +
+    private static String MATH_JS_HTML = "<!DOCTYPE HTML>\n" +
             "<html>\n" +
             "<head>\n" +
             "  <script src=\"file:///android_asset/math.min.js\" type=\"text/javascript\"></script>\n" +

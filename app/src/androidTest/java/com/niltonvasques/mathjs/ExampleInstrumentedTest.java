@@ -37,5 +37,6 @@ public class ExampleInstrumentedTest {
             }
         });
         signal.await();
+        math.destroy();
     }
 }

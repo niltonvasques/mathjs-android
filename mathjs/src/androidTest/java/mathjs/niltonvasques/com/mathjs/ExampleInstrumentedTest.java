@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
 
@@ -20,6 +21,8 @@ import static junit.framework.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+    public final ExpectedException exception = ExpectedException.none();
+
     @Rule
     public Timeout mGlobalTimeout = new Timeout(20, TimeUnit.SECONDS);
     
@@ -35,5 +38,22 @@ public class ExampleInstrumentedTest {
             }
         });
         signal.await();
+
+        math.destroy();
+    }
+
+    @Test
+    public void shouldThrowExceptionAfterBeenDestroyed() throws Exception {
+        exception.expect(IllegalStateException.class);
+
+        MathJS math = new MathJS(InstrumentationRegistry.getTargetContext());
+
+        math.destroy();
+
+        math.eval("2 * 2", new MathJS.MathJSResult() {
+            @Override
+            public void onEvaluated(String value) {
+            }
+        });
     }
 }
