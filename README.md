@@ -6,6 +6,19 @@ An android wrapper library to mathjs.org javascript library
 #### Gradle
 Mathjs is available on jitpack.
 
+Add jitpack to your root build.gradle:
+
+```
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+
+Add the library to app build.gradle
+
 ```gradle
     compile 'com.github.niltonvasques:mathjs-android:v0.1.0'
 ```
