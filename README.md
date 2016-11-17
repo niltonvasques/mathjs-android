@@ -38,4 +38,6 @@ Add the library to app build.gradle
             System.out.println("MathJS.onEvaluated "+value);
         }
     });
+    
+    math.destroy(); //Call after the library been used
 ```
