@@ -1,4 +1,4 @@
-package mathjs.niltonvasques.com.javascriptmath.math;
+package com.niltonvasques.mathjs.math;
 
 import android.content.Context;
 import android.webkit.ValueCallback;
@@ -7,7 +7,7 @@ import android.webkit.WebViewClient;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import mathjs.niltonvasques.com.javascriptmath.utils.ThreadUtils;
+import com.niltonvasques.mathjs.utils.ThreadUtils;
 
 /**
  * Created by niltonvasques on 11/17/16.

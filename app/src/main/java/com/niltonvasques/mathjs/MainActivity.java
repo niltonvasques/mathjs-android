@@ -1,9 +1,9 @@
-package mathjs.niltonvasques.com.javascriptmath;
+package com.niltonvasques.mathjs;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-import mathjs.niltonvasques.com.javascriptmath.math.MathJS;
+import com.niltonvasques.mathjs.math.MathJS;
 
 public class MainActivity extends Activity {
 

@@ -1,10 +1,6 @@
-package mathjs.niltonvasques.com.javascriptmath;
+package com.niltonvasques.mathjs;
 
-import android.app.LauncherActivity;
-import android.content.Context;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -15,10 +11,9 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import mathjs.niltonvasques.com.javascriptmath.math.MathJS;
+import com.niltonvasques.mathjs.math.MathJS;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.*;
 
 /**
  * Instrumentation test, which will execute on an Android device.

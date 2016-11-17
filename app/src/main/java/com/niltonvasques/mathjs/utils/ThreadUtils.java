@@ -1,4 +1,4 @@
-package mathjs.niltonvasques.com.javascriptmath.utils;
+package com.niltonvasques.mathjs.utils;
 
 import android.os.Handler;
 import android.os.Looper;
