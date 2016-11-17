@@ -7,7 +7,7 @@ An android wrapper library to mathjs.org javascript library
 Mathjs is available on jitpack.
 
 ```gradle
-    compile 'com.github.niltonvasques:mathjs-android:0.1.0'
+    compile 'com.github.niltonvasques:mathjs-android:v0.1.0'
 ```
 
 ### Usage
