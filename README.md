@@ -8,7 +8,7 @@ Mathjs is available on jitpack.
 
 Add jitpack to your root build.gradle:
 
-```
+```gradle
 	allprojects {
 		repositories {
 			...
