@@ -3,7 +3,8 @@ package com.niltonvasques.mathjs;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.niltonvasques.mathjs.math.MathJS;
+import mathjs.niltonvasques.com.mathjs.MathJS;
+
 
 public class MainActivity extends Activity {
 

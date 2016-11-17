@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import com.niltonvasques.mathjs.math.MathJS;
+import mathjs.niltonvasques.com.mathjs.MathJS;
 
 import static junit.framework.Assert.assertEquals;
 

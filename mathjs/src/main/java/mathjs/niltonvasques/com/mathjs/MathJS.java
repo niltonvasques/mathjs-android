@@ -1,4 +1,4 @@
-package com.niltonvasques.mathjs.math;
+package mathjs.niltonvasques.com.mathjs;
 
 import android.content.Context;
 import android.webkit.ValueCallback;
@@ -7,7 +7,7 @@ import android.webkit.WebViewClient;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.niltonvasques.mathjs.utils.ThreadUtils;
+import mathjs.niltonvasques.com.mathjs.utils.ThreadUtils;
 
 /**
  * Created by niltonvasques on 11/17/16.
@@ -84,3 +84,4 @@ public class MathJS extends WebViewClient {
             "</body>\n" +
             "</html>";
 }
+

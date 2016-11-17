@@ -1,11 +1,12 @@
-package com.niltonvasques.mathjs.utils;
+package mathjs.niltonvasques.com.mathjs.utils;
 
 import android.os.Handler;
 import android.os.Looper;
 
 /**
- * Created by user on 2/12/2016.
+ * Created by niltonvasques on 11/17/16.
  */
+
 public class ThreadUtils {
     public static boolean isOnMain() {
         return Looper.myLooper() == Looper.getMainLooper();
@@ -33,3 +34,4 @@ public class ThreadUtils {
 
     public static class DispatchOnMainThreadException extends RuntimeException {}
 }
+
