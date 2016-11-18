@@ -1,4 +1,7 @@
 # mathjs-android
+
+[![Build Status](https://travis-ci.org/niltonvasques/mathjs-android.svg?branch=travis)](https://travis-ci.org/niltonvasques/mathjs-android)
+
 An android wrapper library to mathjs.org javascript library
 
 ## Installation
