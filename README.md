@@ -23,7 +23,7 @@ Add jitpack to your root build.gradle:
 Add the library to app build.gradle
 
 ```gradle
-    compile 'com.github.niltonvasques:mathjs-android:v0.1.0'
+    compile 'com.github.niltonvasques:mathjs-android:v0.1.2'
 ```
 
 ### Usage
