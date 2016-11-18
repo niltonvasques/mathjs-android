@@ -1,6 +1,7 @@
 # mathjs-android
 
 [![Build Status](https://travis-ci.org/niltonvasques/mathjs-android.svg?branch=travis)](https://travis-ci.org/niltonvasques/mathjs-android)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MathJS%20Android-green.svg?style=flat)](http://android-arsenal.com/details/1/4675)
 
 An android wrapper library to mathjs.org javascript library
 
