@@ -10,6 +10,7 @@ android:
     - build-tools-23.0.3
 
     # The SDK version used to compile your project
+    - android-22
     - android-23
 
     # Additional components
