@@ -15,19 +15,14 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mMath = new MathJS(getApplicationContext());
+        mMath = new MathJS();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mMath.eval("2 * 5 ^ 2", new MathJS.MathJSResult() {
-            @Override
-            public void onEvaluated(String value) {
-                Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
-            }
-        });
-        mMath.eval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
+        Toast.makeText(MainActivity.this, mMath.eval("2 * 5 ^ 2"), Toast.LENGTH_SHORT).show();
+        mMath.asyncEval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
             @Override
             public void onEvaluated(String value) {
                 Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
