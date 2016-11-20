@@ -1,5 +1,10 @@
 language: android
 jdk: oraclejdk8
+addons:
+  artifacts: true
+  paths: 
+    - ./app/build/
+    - ./mathjs/build/
 android:
   components:
     # Uncomment the lines below if you want to
