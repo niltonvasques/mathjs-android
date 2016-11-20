@@ -24,8 +24,13 @@ public class MainActivity extends Activity {
         Toast.makeText(MainActivity.this, mMath.eval("2 * 5 ^ 2"), Toast.LENGTH_SHORT).show();
         mMath.asyncEval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
             @Override
-            public void onEvaluated(String value) {
-                Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
+            public void onEvaluated(final String value) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
