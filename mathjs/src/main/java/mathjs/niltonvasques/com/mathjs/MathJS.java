@@ -9,7 +9,8 @@ import java.util.Scanner;
 /**
  * A class that wrapper the mathjs.org javascript library to help compute math expressions.
  *
- * Uses {@link #eval} method to evaluate expressions.
+ * Uses {@link #eval} method to evaluate expressions synchronously.
+ * Uses {@link #asyncEval} method to evaluate expressions asynchronously.
  * And when not need more the library, call {@link #destroy()} to deallocate resources from memory.
  *
  * Created by niltonvasques on 11/17/16.
@@ -42,8 +43,7 @@ public class MathJS {
         synchronized (mLock) {
             if (mDuktape == null)
                 throw new IllegalStateException("Cannot evaluate after been destroyed!");
-            String function = "(function() { return math.eval('" + expr + "').toString(); })();";
-            return mDuktape.evaluate(function).toString();
+            return evaluteExpression(expr);
         }
     }
 
@@ -60,20 +60,29 @@ public class MathJS {
             @Override
             public void run() {
                 synchronized (mLock) {
-                    String function = "(function() { return math.eval('" + expr + "'); })();";
-                    callback.onEvaluated(mDuktape.evaluate(function).toString());
+                    String answer = evaluteExpression(expr);
+                    callback.onEvaluated(answer);
                 }
             }
         }).start();
     }
 
     /**
-     * Deallocate WebView instance used by the library.
+     * Deallocate duktape instance used by the library.
      */
     public void destroy() {
         synchronized (mLock) {
             mDuktape.close();
             mDuktape = null;
         }
+    }
+
+    private String evaluteExpression(String expr) {
+        String function = buildJSEvalFunction(expr);
+        return mDuktape.evaluate(function).toString();
+    }
+
+    private String buildJSEvalFunction(String expr) {
+        return "(function() { return math.eval('" + expr + "').toString(); })();";
     }
 }
