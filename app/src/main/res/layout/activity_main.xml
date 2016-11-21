@@ -9,4 +9,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.niltonvasques.mathjs.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/editTxtEquation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sin(45 deg) ^ 2"/>
+
+        <Button
+            android:id="@+id/btnCompute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Compute"/>
+    </LinearLayout>
 </RelativeLayout>

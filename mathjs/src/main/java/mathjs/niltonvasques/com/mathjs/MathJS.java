@@ -43,7 +43,7 @@ public class MathJS {
         synchronized (mLock) {
             if (mDuktape == null)
                 throw new IllegalStateException("Cannot evaluate after been destroyed!");
-            return evaluteExpression(expr);
+            return evaluateExpression(expr);
         }
     }
 
@@ -60,7 +60,7 @@ public class MathJS {
             @Override
             public void run() {
                 synchronized (mLock) {
-                    String answer = evaluteExpression(expr);
+                    String answer = evaluateExpression(expr);
                     callback.onEvaluated(answer);
                 }
             }
@@ -77,7 +77,7 @@ public class MathJS {
         }
     }
 
-    private String evaluteExpression(String expr) {
+    private String evaluateExpression(String expr) {
         String function = buildJSEvalFunction(expr);
         return mDuktape.evaluate(function).toString();
     }
