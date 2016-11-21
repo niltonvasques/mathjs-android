@@ -31,10 +31,10 @@ Add the library to app build.gradle
 ```java
     MathJS math = new MathJS();
     
-    // Synchronously evaluting
+    // Synchronously evaluating
     String answer = math.eval("2 * 5 ^ 2");
     
-    // Asynchronously evaluting
+    // Asynchronously evaluating
     math.asyncEval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
         @Override
         public void onEvaluated(String value) {
@@ -49,7 +49,7 @@ Add the library to app build.gradle
 
 To see more syntax examples see official [#eval()](http://mathjs.org/docs/expressions/parsing.html#eval) docs from mathjs
 
-```
+```java
     // expressions
     math.eval('1.2 * (2 + 4.5)');     // 7.8
     math.eval('5.08 cm to inch');     // 2 inch
