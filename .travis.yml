@@ -1,5 +1,11 @@
 language: android
 jdk: oraclejdk8
+addons:
+  artifacts: 
+    s3_region: "us-west-2"
+    endpoint: "mathjs-android.s3-website-us-west-2.amazonaws.com" 
+  paths: 
+    - ./mathjs/build/reports
 android:
   components:
     # Uncomment the lines below if you want to

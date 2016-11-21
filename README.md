@@ -24,19 +24,18 @@ Add jitpack to your root build.gradle:
 Add the library to app build.gradle
 
 ```gradle
-    compile 'com.github.niltonvasques:mathjs-android:v0.1.2'
+    compile 'com.github.niltonvasques:mathjs-android:v0.2.0'
 ```
 
 ### Usage
 ```java
-    MathJS math = new MathJS(getApplicationContext());
-    math.eval("2 * 5 ^ 2", new MathJS.MathJSResult() {
-        @Override
-        public void onEvaluated(String value) {
-            System.out.println("MathJS.onEvaluated "+value);
-        }
-    });
-    math.eval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
+    MathJS math = new MathJS();
+    
+    // Synchronously evaluting
+    String answer = math.eval("2 * 5 ^ 2");
+    
+    // Asynchronously evaluting
+    math.asyncEval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
         @Override
         public void onEvaluated(String value) {
             System.out.println("MathJS.onEvaluated "+value);
@@ -44,4 +43,17 @@ Add the library to app build.gradle
     });
     
     math.destroy(); //Call after the library been used
+```
+
+#### Evaluator syntax
+
+To see more syntax examples see official [#eval()](http://mathjs.org/docs/expressions/parsing.html#eval) docs from mathjs
+
+```
+    // expressions
+    math.eval('1.2 * (2 + 4.5)');     // 7.8
+    math.eval('5.08 cm to inch');     // 2 inch
+    math.eval('sin(45 deg) ^ 2');     // 0.5
+    math.eval('9 / 3 + 2i');          // 3 + 2i
+    math.eval('det([-1, 2; 3, 1])');  // -7
 ```
