@@ -44,7 +44,7 @@ public class MathJSTest {
     }
 
     @Rule
-    public Timeout mGlobalTimeout = new Timeout(20, TimeUnit.SECONDS);
+    public Timeout mGlobalTimeout = new Timeout(5, TimeUnit.MINUTES);
     
     @Test
     public void mathExpressionsWorks() throws Exception {
