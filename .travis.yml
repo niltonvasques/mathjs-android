@@ -8,7 +8,7 @@ android:
     - tools
 
     # The BuildTools version used by your project
-    - build-tools-23.0.3
+    - build-tools-25.0.0
 
     # The SDK version used to compile your project
     - android-22
@@ -23,10 +23,12 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-22
-    
+
 # Emulator Management: Create, Start and Wait
 before_script:
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

@@ -2,6 +2,8 @@ package mathjs.niltonvasques.com.mathjs;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.squareup.duktape.DuktapeException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -13,6 +15,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -83,6 +87,47 @@ public class MathJSTest {
         math.destroy();
 
         math.eval("2 * 2");
+    }
+
+    @Test(expected = DuktapeException.class)
+    public void shouldThrowDuktapeExceptionWhenExpressionIsInvalid() {
+        MathJS math = new MathJS();
+
+        math.eval("invalid * wrong");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowNullPointerWhenCallbackIsNull() {
+        MathJS math = new MathJS();
+
+        math.asyncEval("10", null);
+    }
+
+    @Test
+    public void shouldCatchDuktapeException() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mSut.asyncEval("invalid * wrong", new MathJS.MathJSResult() {
+            @Override
+            public void onEvaluated(String value) {
+            }
+        }, new MathJS.MathJSError() {
+            @Override
+            public void onError(Exception e) {
+                assertNotNull(e);
+                assertTrue(e instanceof DuktapeException);
+                signal.countDown();
+            }
+        });
+        signal.await();
+    }
+
+    @Test
+    public void shouldNotRaiseNullpointer() {
+        mSut.asyncEval("invalid * wrong", new MathJS.MathJSResult() {
+            @Override
+            public void onEvaluated(String value) {
+            }
+        });
     }
 
     private void assertNumericEval(MathJS math, String expr, double expected) {
