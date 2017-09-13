@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/niltonvasques/mathjs-android.svg?branch=travis)](https://travis-ci.org/niltonvasques/mathjs-android)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MathJS%20Android-green.svg?style=flat)](http://android-arsenal.com/details/1/4675)
+[![codecov](https://codecov.io/gh/niltonvasques/mathjs-android/branch/master/graph/badge.svg)](https://codecov.io/gh/niltonvasques/mathjs-android)
 
 An android wrapper library to mathjs.org javascript library
 
@@ -30,10 +31,10 @@ Add the library to app build.gradle
 ### Usage
 ```java
     MathJS math = new MathJS();
-    
+
     // Synchronously evaluating
     String answer = math.eval("2 * 5 ^ 2");
-    
+
     // Asynchronously evaluating
     math.asyncEval("2 * 5 ^ 2 + 33", new MathJS.MathJSResult() {
         @Override
@@ -41,7 +42,7 @@ Add the library to app build.gradle
             System.out.println("MathJS.onEvaluated "+value);
         }
     });
-    
+
     math.destroy(); //Call after the library been used
 ```
 
