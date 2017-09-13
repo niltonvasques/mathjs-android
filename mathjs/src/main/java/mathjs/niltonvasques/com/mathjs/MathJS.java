@@ -1,6 +1,7 @@
 package mathjs.niltonvasques.com.mathjs;
 
 import com.squareup.duktape.Duktape;
+import com.squareup.duktape.DuktapeException;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -25,6 +26,10 @@ public class MathJS {
         void onEvaluated(String value);
     }
 
+    public interface MathJSError {
+        void onError(Exception e);
+    }
+
     public MathJS() {
         InputStream stream = MathJS.class.getResourceAsStream("/math.min.js");
         final String mathString = new Scanner(stream, Charset.defaultCharset().name())
@@ -38,8 +43,10 @@ public class MathJS {
      *
      * @param expr expression to be evaluated.
      * @return result the expression been evaluated.
+     *
+     * @throws DuktapeException if expression is invalid.
      */
-    public String eval(String expr) {
+    public String eval(String expr) throws DuktapeException {
         synchronized (mLock) {
             if (mDuktape == null)
                 throw new IllegalStateException("Cannot evaluate after been destroyed!");
@@ -52,19 +59,41 @@ public class MathJS {
      *
      * @param expr expression to be evaluated.
      * @param callback that will be called after the expression be evaluated.
+     * @param error that will be called if some error happens.
+     *
+     * @throws NullPointerException if callback is null.
      */
-    public void asyncEval(final String expr, final MathJSResult callback) {
+    public void asyncEval(final String expr, final MathJSResult callback, final MathJSError error)
+            throws NullPointerException {
         if (mDuktape == null)
             throw new IllegalStateException("Cannot evaluate after been destroyed!");
+        if (callback == null) throw new NullPointerException("Callback cannot be null");
         new Thread(new Runnable() {
             @Override
             public void run() {
                 synchronized (mLock) {
-                    String answer = evaluateExpression(expr);
-                    callback.onEvaluated(answer);
+                    try {
+                        String answer = evaluateExpression(expr);
+                        callback.onEvaluated(answer);
+                    } catch (Exception e) {
+                        if (error != null) error.onError(e);
+                    }
                 }
             }
         }).start();
+    }
+
+    /**
+     * Evaluate n math expression using mathjs library asynchronously.
+     *
+     * @param expr expression to be evaluated.
+     * @param callback that will be called after the expression be evaluated.
+     *
+     * @throws NullPointerException if callback is null.
+     */
+    public void asyncEval(final String expr, final MathJSResult callback)
+            throws NullPointerException {
+        asyncEval(expr, callback, null);
     }
 
     /**
@@ -77,7 +106,7 @@ public class MathJS {
         }
     }
 
-    private String evaluateExpression(String expr) {
+    private String evaluateExpression(String expr) throws DuktapeException {
         String function = buildJSEvalFunction(expr);
         return mDuktape.evaluate(function).toString();
     }
