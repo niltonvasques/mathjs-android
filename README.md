@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/niltonvasques/mathjs-android.svg?branch=travis)](https://travis-ci.org/niltonvasques/mathjs-android)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MathJS%20Android-green.svg?style=flat)](http://android-arsenal.com/details/1/4675)
 [![codecov](https://codecov.io/gh/niltonvasques/mathjs-android/branch/master/graph/badge.svg)](https://codecov.io/gh/niltonvasques/mathjs-android)
+[![Maintainability](https://api.codeclimate.com/v1/badges/dc4c18369a2678d49f85/maintainability)](https://codeclimate.com/github/niltonvasques/mathjs-android/maintainability)
 
 An android wrapper library to mathjs.org javascript library
 
